@@ -1,6 +1,5 @@
 import os
 import shutil
-import ConfigParser
 
 
 class DumpyConfig(object):
@@ -8,7 +7,8 @@ class DumpyConfig(object):
     def __init__(self):
         self.dumpy_file = self.verify_dumpy_file()
 
-    def verify_dumpy_file(self):
+    @classmethod
+    def verify_dumpy_file(cls):
         """Verify if exists dumpy file in home user """
         home_dir = os.path.expanduser("~")
         file_exist = os.path.exists(os.path.join(home_dir, ".dumpyme.ini"))
