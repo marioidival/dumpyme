@@ -1,12 +1,14 @@
 from fabric.api import env, execute, run, cd, settings, get
 
 from ..utils.reader import DumpyReader
+from ..utils.config import DumpyConfig
 from ..utils.supported_databases import dump_commands
 
 
 class DumpyExecutor(object):
 
     def __init__(self, project):
+        self.dumpyconfig = DumpyConfig()
         dumpreader = DumpyReader()
         self.project_data = dumpreader.section_infos(project)
         self.local_info = dumpreader.section_infos('local_info')
@@ -30,12 +32,15 @@ class DumpyExecutor(object):
             self.project_data['user'],
             self.project_data['host']
         )
+        dump_local = self.dumpyconfig.dumpylocation(
+            self.local_info["dump_location"]
+        )
         with settings(host_string=host_string):
             with cd("/tmp"):
                 # Make dump
                 run(self.dump_command(db_type, database, dump_folder))
                 # Copy to user directory
-                get(gzip_dump_folder, self.local_info['dump_location'])
+                get(gzip_dump_folder, dump_local)
 
     def run(self):
         """Execute fabric task"""

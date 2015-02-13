@@ -21,18 +21,14 @@ class DumpyConfig(object):
     def move_config_file(self, default_file):
         """Move default dumpy file to user home"""
         if self.dumpy_file:
-            # informa que arquivo existe, override?
             return False
 
         shutil.copy(default_file, os.path.expanduser("~") + "/.dumpyme.ini")
         return True
 
-    def add_project(self, **project_info):
-        """Add new project in dumpy file"""
-        if not self.dumpy_file:
-            # raise error
-            return False
+    def dumpylocation(self, dumpy_local):
+        """Create or return dumpylocation"""
+        if not os.path.exists(dumpy_local):
+            os.makedirs(dumpy_local)
 
-    def remove_project(self, project):
-        """Remove project from dumpy file"""
-        pass
+        return dumpy_local

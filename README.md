@@ -1,6 +1,6 @@
 # Dumpy Me
 
-Command line package to get dumps
+Command line package to get dumps of databases
 
 ### Install
 

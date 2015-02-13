@@ -1,3 +1,5 @@
+import os
+
 try:
     import ConfigParser as configparser
 except ImportError:
@@ -5,11 +7,12 @@ except ImportError:
 
 from .config import DumpyConfig
 
+
 class DumpyReader(object):
 
     def __init__(self):
         self.dumpyfile = DumpyConfig.verify_dumpy_file()
-        self.configp = configparser.ConfigParser()
+        self.configp = configparser.SafeConfigParser()
         self.expected_keys = ['project', 'host', 'user', 'db', 'db_name']
 
     def add_section_project(self, **infos):
@@ -58,3 +61,12 @@ class DumpyReader(object):
                 dsection[info] = None
 
         return dsection
+
+    def update_infos(self, project, infor, newvalue):
+        self.configp.read(self.dumpyfile)
+
+        self.configp.set(project, infor, newvalue)
+
+        with open(self.dumpyfile, 'w+') as dumpyfile:
+            self.configp.write(dumpyfile)
+

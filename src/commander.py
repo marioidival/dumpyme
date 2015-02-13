@@ -20,6 +20,11 @@ def init():
         we_file = os.path.join(os.path.dirname(__file__),
                                'templates/tmp_dumpyme.ini')
         result = dumpy_conf.move_config_file(we_file)
+
+        dumpy_reader = DumpyReader()
+        default_dir = os.path.expanduser("~") + "/dumpys/"
+        dumpy_reader.update_infos('local_info', 'dump_location', default_dir)
+
         if result:
             click.echo("dumpyfile in your home directory as ~/.dumpyfile.ini")
         else:
