@@ -20,7 +20,9 @@ class DumpyReader(object):
 
         psection = infos["project"]
         del infos["project"]
+
         self.configp.add_section(psection)
+
         for key, val in infos.items():
             self.configp.set(psection, key, val)
 
@@ -30,7 +32,15 @@ class DumpyReader(object):
         return True
 
     def remove_section_project(self, project):
-        pass
+        self.configp.read(self.dumpyfile)
+
+        result = self.configp.remove_section(project)
+
+        if result:
+            with open(self.dumpyfile, 'w') as dumpyfile:
+                self.configp.write(dumpyfile)
+
+            return result
 
     def section_infos(self, project):
         """Return info of project"""
