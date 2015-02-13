@@ -3,11 +3,14 @@ import click
 
 from utils.config import DumpyConfig
 from utils.reader import DumpyReader
+from tasks.executor import DumpyExecutor
+from utils.supported_databases import SUPPORTED
 
 
 @click.group()
 def dumpy():
     """Command Line package to get dumps"""
+
 
 @dumpy.command()
 def init():
@@ -22,13 +25,14 @@ def init():
         else:
             click.echo("dumpyfile already exists in home directory")
 
+
 @dumpy.command()
 @click.option("--project", prompt="Project name")
 @click.option("--host", prompt="Host of project")
 @click.option("--user", prompt="User of host")
 @click.option("--db", prompt="Name of db")
 @click.option("--db_name", prompt="DB Type (e.g: mongodb, postgresql...)",
-              type=click.Choice(['mongodb']))
+              type=click.Choice(SUPPORTED))
 def add(project, host, user, db, db_name):
     """Add new project in dumpfile"""
     dumpy_reader = DumpyReader()
@@ -56,7 +60,10 @@ def delete(project):
         if result:
             click.echo("project removed sucessfully")
 
+
 @dumpy.command()
 @click.argument("project")
 def me(project):
     """Get dumps of project"""
+    executor = DumpyExecutor(project)
+    executor.run()
