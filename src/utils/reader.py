@@ -32,6 +32,7 @@ class DumpyReader(object):
         return True
 
     def remove_section_project(self, project):
+        """Remove project from dumpyfile"""
         self.configp.read(self.dumpyfile)
 
         result = self.configp.remove_section(project)
@@ -43,17 +44,17 @@ class DumpyReader(object):
             return result
 
     def section_infos(self, project):
-        """Return info of project"""
+        """Return informations of project from dumpyfile"""
         dsection = {}
         config = self.configp.read(self.dumpyfile)
-        infos = config.options(project)
+        infos = self.configp.options(project)
 
         for info in infos:
             try:
-                dsection[info] = config.get(project, info)
-
+                dsection[info] = self.configp.get(project, info)
                 if dsection[info] == -1:
                     pass
             except:
                 dsection[info] = None
+
         return dsection
