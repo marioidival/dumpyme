@@ -1,12 +1,14 @@
 Dumpy Me
 ========
 
-Command line package to get dumps of databases
+Command line package to get dumps of databases |Demo|
 
 Install
 ~~~~~~~
 
-``pip install dumpyme``
+::
+
+    pip install dumpyme
 
 Usage
 ~~~~~
@@ -14,19 +16,25 @@ Usage
 1 - Create dumpyfile
 ''''''''''''''''''''
 
-``dumpy init``
+::
+
+    dumpy init
 
 2 - Add some project in dumpyfile
 '''''''''''''''''''''''''''''''''
 
-``dumpy add``
+::
+
+    dumpy add
 
 This command will ask questions about the project
 
 3 - Get dump of project
 '''''''''''''''''''''''
 
-``dumpy me my_project``
+::
+
+    dumpy me my_project
 
 Databases supported
 ~~~~~~~~~~~~~~~~~~~

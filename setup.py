@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 root = os.path.abspath(os.path.dirname(__file__))
 
@@ -8,15 +8,15 @@ with open(os.path.join(root, 'README.rst')) as f:
 
 setup(
     name="dumpyme",
-    version="0.0.5",
+    version="0.0.9",
     author="Mario Idival",
     author_email="marioidival@gmail.com",
-    description=("Command line package to get dumps databases"),
+    description=("Command line package to get dump databases"),
     long_description=README,
     license="MIT",
-    keywords="dump dumpyme mongo postgres mysql",
+    keywords="dump dumpyme mongodb postgres mysql databases",
     url="https://github.com/marioidival/dumpyme",
-    packages=['src', 'src.utils', 'src.tasks', 'src.templates'],
+    packages=find_packages(),
     install_requires=['click', 'fabric'],
     tests_require=['nose', 'coverage'],
     test_suite='tests',
