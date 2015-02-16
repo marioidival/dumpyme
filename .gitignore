@@ -55,3 +55,4 @@ target/
 
 # my tests :)
 testes.py
+.DS_Store
