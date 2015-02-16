@@ -1,7 +1,7 @@
 # Dumpy Me
 
 Command line package to get dumps of databases
-![Demo](dumpyme.gif)
+
 
 ### Install
 
