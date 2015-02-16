@@ -19,6 +19,8 @@ Command line package to get dumps of databases
 
 This command will ask questions about the project
 
+![screen](add_project.png)
+
 ##### 3 - Get dump of project
 
     dumpy me my_project
