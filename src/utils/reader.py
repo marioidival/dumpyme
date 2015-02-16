@@ -17,13 +17,15 @@ class DumpyReader(object):
         self.configp = configparser.SafeConfigParser()
         self.expected_keys = ['project', 'host', 'user', 'db', 'db_name']
 
+        self.configp.read(self.dumpyfile)
+
     def add_section_project(self, **infos):
         """Add new project with infos in dumpyfile.
         dict infos:
             project = name of project
             host = host of project
-            db = name of database
-            db_name = database type (mongodb, postgresql)
+            db_name = name of database
+            db = database type (mongodb, postgresql)
 
         Write new project/section and arguments with values in configuration
         file.
@@ -55,8 +57,6 @@ class DumpyReader(object):
 
         return True if success.
         """
-        self.configp.read(self.dumpyfile)
-
         result = self.configp.remove_section(project)
 
         if result:
@@ -73,7 +73,6 @@ class DumpyReader(object):
         return dict dsection
         """
         dsection = {}
-        config = self.configp.read(self.dumpyfile)
         infos = self.configp.options(project)
 
         for info in infos:
@@ -98,8 +97,6 @@ class DumpyReader(object):
             new value to infor
 
         """
-        self.configp.read(self.dumpyfile)
-
         self.configp.set(project, infor, newvalue)
 
         with open(self.dumpyfile, 'w+') as dumpyfile:

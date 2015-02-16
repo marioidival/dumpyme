@@ -40,22 +40,22 @@ def init():
 @click.option("--project", prompt="Project name")
 @click.option("--host", prompt="Host of project")
 @click.option("--user", prompt="User of host")
-@click.option("--db", prompt="Name of db")
-@click.option("--db_name", prompt="DB Type (e.g: mongodb, postgresql...)",
+@click.option("--db_name", prompt="Name of database")
+@click.option("--db", prompt="Database Type (e.g: mongodb, postgresql...)",
               type=click.Choice(SUPPORTED))
 def add(project, host, user, db, db_name):
     """ Add new project in dumpfile.
     If you want, you can add manually in ~/.dumpyfile.ini.
 
-       [project_name]
+    [project_name]
 
-        host = host_to_project
+    host = host_to_project
 
-        user = user_of_host
+    user = user_of_host
 
-        db = database_name
+    db = database_type (e.g: mongodb, postgresql...)
 
-        db_name = database_type (e.g: mongodb, postgresql...)
+    db_name = database_name
 
     """
     dumpy_reader = DumpyReader()
@@ -64,12 +64,37 @@ def add(project, host, user, db, db_name):
             project=project, host=host, user=user, db=db, db_name=db_name
         )
         if result:
-            click.echo("Adding in dumpyfile:")
+            click.echo("\nAdding in dumpyfile:")
             click.echo("\tProject: {}".format(project))
             click.echo("\tHost: {}".format(host))
-            click.echo("\tDatabase: {}".format(db))
-            click.echo("\tDatabase Type: {}".format(db_name))
+            click.echo("\tDatabase: {}".format(db_name))
+            click.echo("\tDatabase Type: {}".format(db))
         # Error message
+
+
+@dumpy.command()
+@click.option("--name", help="Show only name of projects", is_flag=True)
+def projects(name):
+    """ List informations of projects in dumpyfile """
+    dumpy_reader = DumpyReader()
+    if dumpy_reader.dumpyfile:
+        click.echo("Projects:")
+        click.echo("=" * 40)
+        name_projects = dumpy_reader.configp.sections()
+        if name:
+            for project in name_projects:
+                if project != "local_info":
+                    click.echo("\t{}".format(project))
+            click.echo("=" * 40)
+        else:
+            for project in name_projects:
+                if project != "local_info":
+                    infos = dumpy_reader.section_infos(project)
+                    click.echo("-------> {0}".format(project))
+                    for k, v in infos.items():
+                        click.echo("\t\t{0}: {1}".format(k, v))
+            click.echo("=" * 40)
+
 
 
 @dumpy.command()
