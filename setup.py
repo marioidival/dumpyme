@@ -8,7 +8,7 @@ with open(os.path.join(root, 'README.rst')) as f:
 
 setup(
     name="dumpyme",
-    version="0.0.9",
+    version="0.1.0",
     author="Mario Idival",
     author_email="marioidival@gmail.com",
     description=("Command line package to get dump databases"),
