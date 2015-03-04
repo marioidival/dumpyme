@@ -25,18 +25,36 @@ Usage
 Initial dumpyfile:
 ''''''''''''''''''
 
-.. figure:: screenshots/dumpyfile.png
-   :alt: initdumpyfile
+::
 
-   initdumpyfile
+    [local_info]
+    dump_location = /Users/marioidival/dumpys/
+
+    [my_project]
+    host = 187.111.44.100
+    db_name = mongodb
+    db = my_project_db
+    user = root
+
+    [my_project2]
+    host = 192.191.190.89
+    db_name = mongodb
+    db = my_project2_db
+    user = my_root
 
 help:
 '''''
 
-.. figure:: screenshots/init_help.png
-   :alt: inithelp
+::
 
-   inithelp
+    Usage: dumpy init [OPTIONS]
+
+      Create dumpyfile and move to home directory. `dumpyfile` is configuration
+      file of dumpyme, there exists informations of projects like host, user,
+      database to get dump, database types (mongodb, postgresql).
+
+    Options:
+      --help  Show this message and exit.
 
 2 - Add some project in dumpyfile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,10 +77,26 @@ help:
 help:
 '''''
 
-.. figure:: screenshots/add_project_help.png
-   :alt: addhelp
+::
 
-   addhelp
+    Usage: dumpy add [OPTIONS]
+
+      Add new project in dumpfile. If you want, you can add manually in
+      ~/.dumpyfile.ini.
+
+      [project_name]
+      host = host_to_project
+      user = user_of_host
+      db = database_type (e.g: mongodb, postgresql...)
+      db_name = database_name
+
+    Options:
+      --project TEXT
+      --host TEXT
+      --user TEXT
+      --db_name TEXT
+      --db [mongodb]
+      --help          Show this message and exit.
 
 3 - List projects in dumpyfile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,10 +138,15 @@ or list name of projects:
 help:
 '''''
 
-.. figure:: screenshots/list_help.png
-   :alt: listhelp
+::
 
-   listhelp
+    Usage: dumpy projects [OPTIONS]
+
+      List informations of projects in dumpyfile
+
+    Options:
+      --name  Show only name of projects
+      --help  Show this message and exit.
 
 4 - Get dump of project
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,10 +158,14 @@ help:
 help:
 '''''
 
-.. figure:: screenshots/dumpy_me.png
-   :alt: dumpymehelp
+::
 
-   dumpymehelp
+    Usage: dumpy me [OPTIONS] PROJECT
+
+      Get dump database of project
+
+    Options:
+      --help  Show this message and exit.
 
 5 - Delete projects in dumpyfile
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -132,10 +175,17 @@ help:
     dumpy delete my_project
     Project removed sucessfully
 
-.. figure:: screenshots/delete_project.png
-   :alt: deleteproject
+help:
+^^^^^
 
-   deleteproject
+::
+
+    Usage: dumpy delete [OPTIONS] PROJECT
+
+      Delete project of dumpfile
+
+    Options:
+      --help  Show this message and exit.
 
 Databases supported
 ~~~~~~~~~~~~~~~~~~~

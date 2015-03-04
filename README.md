@@ -16,10 +16,30 @@ Command line package to get dumps of databases
 	dumpyfile in your home directory as ~/.dumpyfile.ini
 
 ##### Initial dumpyfile:
-![initdumpyfile](screenshots/dumpyfile.png)
+    [local_info]
+    dump_location = /Users/marioidival/dumpys/
+
+    [my_project]
+    host = 187.111.44.100
+    db_name = mongodb
+    db = my_project_db
+    user = root
+
+    [my_project2]
+    host = 192.191.190.89
+    db_name = mongodb
+    db = my_project2_db
+    user = my_root
 
 ##### help:
-![inithelp](screenshots/init_help.png)
+    Usage: dumpy init [OPTIONS]
+
+      Create dumpyfile and move to home directory. `dumpyfile` is configuration
+      file of dumpyme, there exists informations of projects like host, user,
+      database to get dump, database types (mongodb, postgresql).
+
+    Options:
+      --help  Show this message and exit.
 
 ### 2 - Add some project in dumpyfile
 
@@ -37,7 +57,24 @@ Command line package to get dumps of databases
 			Database Type: mongodb
 
 ##### help:
-![addhelp](screenshots/add_project_help.png)
+    Usage: dumpy add [OPTIONS]
+
+      Add new project in dumpfile. If you want, you can add manually in
+      ~/.dumpyfile.ini.
+
+      [project_name]
+      host = host_to_project
+      user = user_of_host
+      db = database_type (e.g: mongodb, postgresql...)
+      db_name = database_name
+
+    Options:
+      --project TEXT
+      --host TEXT
+      --user TEXT
+      --db_name TEXT
+      --db [mongodb]
+      --help          Show this message and exit.
 
 ### 3 - List projects in dumpyfile
 
@@ -72,21 +109,38 @@ or list name of projects:
 	========================================
 
 ##### help:
-![listhelp](screenshots/list_help.png)
+    Usage: dumpy projects [OPTIONS]
+
+      List informations of projects in dumpyfile
+
+    Options:
+      --name  Show only name of projects
+      --help  Show this message and exit.
 
 ### 4 - Get dump of project
 
     dumpy me my_project
 
 ##### help:
-![dumpymehelp](screenshots/dumpy_me.png)
+    Usage: dumpy me [OPTIONS] PROJECT
+
+      Get dump database of project
+
+    Options:
+      --help  Show this message and exit.
 
 ### 5 - Delete projects in dumpyfile
 
 	dumpy delete my_project
 	Project removed sucessfully
 
-![deleteproject](screenshots/delete_project.png)
+#### help:
+    Usage: dumpy delete [OPTIONS] PROJECT
+
+      Delete project of dumpfile
+
+    Options:
+      --help  Show this message and exit.
 
 ### Databases supported
 * MongoDB
