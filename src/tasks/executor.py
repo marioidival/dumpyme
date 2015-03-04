@@ -7,11 +7,13 @@ from ..utils.supported_databases import dump_commands
 
 class DumpyExecutor(object):
 
-    def __init__(self, project):
+    def __init__(self, project, backup=False):
         self.dumpyconfig = DumpyConfig()
         dumpreader = DumpyReader()
+
         self.project_data = dumpreader.section_infos(project)
         self.local_info = dumpreader.section_infos('local_info')
+        self.backup = backup
 
     def dump_command(self, db_type, database, dumpy_folder):
         """Format dump command of project"""
@@ -48,8 +50,9 @@ class DumpyExecutor(object):
                 # Copy to user directory
                 get(gzip_dump_folder, dump_local)
 
-                # Remove dump files from host
-                run(self.remove_from_host(dump_folder))
+                if not self.backup:
+                    # Remove dump files from host
+                    run(self.remove_from_host(dump_folder))
 
     def run(self):
         """Execute fabric task"""
