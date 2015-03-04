@@ -111,7 +111,8 @@ def delete(project):
 
 @dumpy.command()
 @click.argument("project")
-def me(project):
+@click.option("--backup", is_flag=True)
+def me(project, backup):
     """Get dump database of project"""
-    executor = DumpyExecutor(project)
+    executor = DumpyExecutor(project, backup)
     executor.run()
