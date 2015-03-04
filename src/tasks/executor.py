@@ -21,10 +21,15 @@ class DumpyExecutor(object):
 
         return "{} | {}".format(command, gzip_command)
 
+    def remove_from_host(self, dumpy_folder):
+        """Remove dumpy and .gz files from host"""
+        command = "rm -rfv {0} && rm -rfv {0}.gz".format(dumpy_folder)
+        return command
+
     def task_runner(self):
         """Execute task to user"""
-        database = self.project_data["db"]
-        db_type = self.project_data["db_name"]
+        database = self.project_data["db_name"]
+        db_type = self.project_data["db"]
         dump_folder = 'dumpy_{}'.format(database)
         gzip_dump_folder = 'dumpy_{}.gz'.format(database)
 
@@ -39,8 +44,12 @@ class DumpyExecutor(object):
             with cd("/tmp"):
                 # Make dump
                 run(self.dump_command(db_type, database, dump_folder))
+
                 # Copy to user directory
                 get(gzip_dump_folder, dump_local)
+
+                # Remove dump files from host
+                run(self.remove_from_host(dump_folder))
 
     def run(self):
         """Execute fabric task"""
