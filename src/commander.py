@@ -69,7 +69,6 @@ def add(project, host, user, db, db_name):
             click.echo("\tHost: {}".format(host))
             click.echo("\tDatabase: {}".format(db_name))
             click.echo("\tDatabase Type: {}".format(db))
-        # Error message
 
 
 @dumpy.command()
