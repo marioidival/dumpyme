@@ -190,4 +190,4 @@ help:
 Databases supported
 ~~~~~~~~~~~~~~~~~~~
 
--  MongoDB
+-  MongoDB (Basic Support)
