@@ -2,7 +2,6 @@
 
 Command line package to get dumps of databases
 
-
 ## Install
 
     pip install dumpyme
